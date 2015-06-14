@@ -1,0 +1,29 @@
+{
+  {
+    Visible = true,
+    Pixels = {
+      "ff 0Worm 3Sk fSh 5Mc ff                  8 f    0 10:32 Am8  0@f ",
+      "f4SCORE 004    1   f                   8 f   4  DIFFICULTY 01",
+      "f4  0 f                                                ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                 e f                 ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff           d       f                                 ",
+      "ff                                                   ",
+      "7f                                                   ",
+      "7f 0App Drawer8   Favorites   Search..0     8 Recent f  8vf ",
+      "7f                                                   ",
+      "7f  3   8 7 f  8  c f 78 f  40  1  7f 0Default for filesf  8* f 8<f     8| ",
+      "7f  30 Skf 7   8 c f 8 7  1 4 0Fl1 7 8Explore Your Computer'sf     0|f ",
+      "7f  3    7   e4 ff 8  7   41    7f 8Files.f          8      f      8| ",
+      "70 Sketchf 0 Paintf  0Filesf                 8Launch0 f    8| ",
+      "7f                                                 8  ",
+    },
+    Index = 1,
+    Name = "Background",
+    BackgroundColour = 1,
+  },
+}

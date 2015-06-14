@@ -1,0 +1,29 @@
+{
+  {
+    Visible = true,
+    Pixels = {
+      "7f 0Shellf 30Skf f0Wrf 50Mcf 7                         40F 7Sf 30S 7f 0 @f ",
+      "f4CraftOS 1.71   f                                     ",
+      "f4> 0_f                                                ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                                   ",
+    },
+    Index = 1,
+    Name = "Background",
+    BackgroundColour = 1,
+  },
+}

@@ -1,0 +1,29 @@
+{
+  {
+    Visible = true,
+    Pixels = {
+      "ff 0Worm 3Sk fSh 5Mc ff                       0 10:32 Am8  0@f ",
+      "f4SCORE 004    1   f                       4  DIFFICULTY 01",
+      "f4  0 f                                                ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                 e f                 ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff           d       f                                 ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                   e f                               ",
+      "ff                                                   ",
+      "ff                                                   ",
+      "ff                                                   ",
+    },
+    Index = 1,
+    Name = "Background",
+    BackgroundColour = 1,
+  },
+}

@@ -1,5 +1,7 @@
-==UniOS==
-==A CCJam Entry==
+UniOS
+=====
+A CCJam Entry
+=============
 
 UniOS is a new OS centered CraftOS, but with many GUI features as well.
 Many other objects are also included in UniOS, such as a unique FS file system, and UIF (Uni Install File) support.
@@ -11,7 +13,8 @@ Production will begin Friday-Monday, for CCJam.
 
 Made by Patrick Zambonie.
 
-==If you'd like to contact me or watch me code...==
+If you'd like to contact me or watch me code...
+===============================================
 
 Watch me code on Twitch: http://www.twitch.tv/patzambonie
 Subscribe to me on Youtube: https://www.youtube.com/channel/UCZZ4S1wbXwEj9_Lu1j8gqFQ

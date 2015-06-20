@@ -1,0 +1,137 @@
+--//Uni OS, a very simple OS\\--
+
+local runningPrograms = {}
+
+local installFolder = "./unios/apps/"
+
+local w, h = term.getSize()
+
+local focusedProgram = 1
+
+local resumeEvents = {}
+
+local nativeTerm = term.current()
+
+local appdatas = "/applications/appdata/"
+
+local loadedAppdatas = {}
+
+local function drawUI()
+  term.redirect(nativeTerm)
+  local curP = runningPrograms[focusedProgram]
+  if not curP then
+    theme = {colors.gray, colors.white}
+  elseif curP then
+    theme = {loadedAppdatas[curP.program].theme[1], loadedAppdatas[curP.program].theme[2]}
+  end
+    
+  paintutils.drawLine(1, 1, w, 1, theme[1])
+  term.setTextColor(colors.white)
+  term.setCursorPos(w-3, 1)
+  write("Uni")
+  term.setCursorPos(1, 1)
+  write(" "..runningPrograms[focusedProgram].name.." ")
+  for k, v in pairs(runningPrograms) do
+    if k ~= focusedProgram then
+
+      local curP = runningPrograms[focusedProgram]
+      if not curP then
+        theme = {colors.gray, colors.white}
+      elseif curP then
+        theme = {loadedAppdatas[v.program].theme[1], loadedAppdatas[v.program].theme[2]}
+      end
+
+      term.setBackgroundColor(theme[1])
+      write(v.name:sub(1, 2).." ")
+    end
+  end
+
+  term.redirect(runningPrograms[focusedProgram].proc)
+end
+
+local function startProgram(name, prgName)
+  term.redirect(nativeTerm)
+  runningPrograms[#runningPrograms+1] = {name=name, program=prgName, proc=window.create(term.current(), 1, 2, w, h-1, true), x=1, y=1}
+  runningPrograms[#runningPrograms].coro = coroutine.create(function() local x, y = term.getCursorPos() runningPrograms[focusedProgram].x = x runningPrograms[focusedProgram].y = y shell.run(runningPrograms[#runningPrograms].program) end)
+
+  --Load Appdata
+  if fs.exists(appdatas..prgName) then
+    local file = fs.open(appdatas..prgName, "r").readAll()
+    loadedAppdatas[prgName] = textutils.unserialize(file)
+  end
+end
+
+local function exitProgram(toExit)
+  table.remove(runningPrograms, toExit)
+
+  focusedProgram = 1
+  term.redirect(nativeTerm)
+  term.setBackgroundColor(colors.black)
+  term.clear()
+  term.redirect(runningPrograms[focusedProgram].proc)
+  drawUI()
+  term.clear()
+  runningPrograms[focusedProgram].proc.setVisible(true)
+  runningPrograms[focusedProgram].proc.reposition(1, 2)
+  term.setCursorPos(runningPrograms[focusedProgram].x, runningPrograms[focusedProgram].y)
+end
+
+local function changeProgram(toID)
+  if toID == focusedProgram then runningPrograms[focusedProgram].proc.redraw() term.setCursorPos(runningPrograms[focusedProgram].x, runningPrograms[focusedProgram].y) return false end    
+
+  local x, y = term.getCursorPos()
+  runningPrograms[focusedProgram].x = x 
+  runningPrograms[focusedProgram].y = y
+  runningPrograms[focusedProgram].proc.reposition(w+1, 2)
+  runningPrograms[focusedProgram].proc.setVisible(false)
+  focusedProgram = toID
+  term.redirect(nativeTerm)
+  term.setBackgroundColor(colors.black)
+  term.clear()
+  term.redirect(runningPrograms[focusedProgram].proc)
+  drawUI()
+  runningPrograms[focusedProgram].proc.setVisible(true)
+  runningPrograms[focusedProgram].proc.reposition(1, 2)
+  runningPrograms[focusedProgram].proc.redraw()
+  term.setCursorPos(runningPrograms[focusedProgram].x, runningPrograms[focusedProgram].y)
+end
+
+--Begin CraftOS Process
+
+startProgram("Shell", "shell")
+
+while true do
+  drawUI()
+  changeProgram(focusedProgram) --Since its already selected, it will only make sure that the cursor pos is in the right place, etc.
+
+  while true do
+    local state, event = coroutine.resume(runningPrograms[focusedProgram].coro, unpack(resumeEvents))
+    
+    if coroutine.status(runningPrograms[focusedProgram].coro) == "dead" and focusedProgram ~= 1 then
+      exitProgram(focusedProgram)
+    elseif coroutine.status(runningPrograms[focusedProgram].coro) == "dead" and focusedProgram == 1 then
+      os.shutdown()
+    end
+    
+    resumeEvents = {}
+    resumeEvents = {os.pullEvent(event)}
+    
+    if resumeEvents[1] == "mouse_click" or resumeEvents[1] == "mouse_drag" then
+      resumeEvents[4] = resumeEvents[4] - 1
+      break
+    elseif resumeEvents[1] == "char" and resumeEvents[2] == "^" then --temp until we get mouse clicks working.
+      if #runningPrograms == 1 then
+        startProgram("Sketch", "sketch") --temp
+      end
+
+      if focusedProgram == 2 then
+        changeProgram(1)
+        resumeEvents = {}
+      else
+        changeProgram(2)
+        resumeEvents = {}
+      end
+      break
+    end
+  end
+end

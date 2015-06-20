@@ -1,0 +1,6 @@
+{
+  name = "Flappy",
+  program = "flappy",
+  theme = {8, 0},
+}
+  

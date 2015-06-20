@@ -1,0 +1,6 @@
+{
+  name = "Shell",
+  program = "shell",
+  theme = {128, 0},
+}
+  
